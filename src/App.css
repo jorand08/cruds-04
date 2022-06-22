@@ -1,0 +1,73 @@
+body{
+  padding: 50px 30px;
+  font-size: 15px;
+  background-color: rgb(253, 253, 253);
+}
+
+.App {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+
+}
+
+/*---Mobile--*/
+.card{
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px #999;
+  width: 600px;
+  padding: 20px;
+  border-bottom: 4px solid red;
+  border-left: 4px solid red;
+}
+.card i{
+  width: 30px;
+
+}
+.iclass{
+  display: flex;
+  justify-content: end;
+}
+.fa-solid{
+  font-size: 20px;
+}
+.title_principal{
+  font-size: 1.5rem;
+  font-weight: 600px;
+}
+.text_name span{
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.header{
+  display: flex;
+  flex-direction: column;
+}
+
+.btnNew-user {
+  background-color: #d43c3c; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 15px;
+margin-bottom: 20px;
+}
+
+.btn-Trash{
+  text-decoration: none;
+  border: none;
+  background-color: white;
+  color: #d43c3c;
+  cursor: pointer;
+
+}
+.iclass{
+  gap: 10px;
+}
+
+
+
