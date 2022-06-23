@@ -3,11 +3,16 @@ import './App.css'
 import axios from 'axios'
 import CardUser from './components/CardUser'
 import FormUserId from './components/FormUserId'
+import { useForm } from 'react-hook-form'
 
 
 const URL = 'https://users-crud1.herokuapp.com/users/'
 function App() {
   const [users, setUsers] = useState()
+  const [dataEdit, setDataEdit] = useState(false)
+  const {handleSubmit, register, reset}= useForm()
+  const [isShow, setIsShow] = useState(false)
+
   
   const allUser = () =>{
     axios.get(URL)
@@ -19,30 +24,34 @@ function App() {
     allUser()
   },[])
  
-  const postUsers = () => {
-    const newUser ={
-      birthday: "2000-12-13",
-      email: "JorgeaA@gmail.com",
-      first_name: "Juan",
-      last_name: "Daniel",
-      password: "sss"
-    }
+  const postUsers = newUser => {
     axios.post(URL, newUser)
     .then(res => console.log(res.data))
     .catch(err => console.log(err))
     .finally(() => allUser())
   }
 
-
-  
-  console.log(users)
+  const showForm =()=>setIsShow(!isShow)
 
   return (
     <div className="App fit">
       <div className='header'>
         <h2 className='title_principal'>AGREGAR USUARIOS</h2>
-        <button className='btnNew-user' onClick={postUsers}>New User</button>
-        <FormUserId/>
+        <button className='btnNew-user' onClick={showForm}>{isShow ? 'Ocultar' : 'Nuevo Usuario' }</button>
+        {isShow &&
+          <FormUserId
+          postUsers={postUsers}
+          allUser={allUser}
+          dataEdit={dataEdit}
+          setDataEdit={setDataEdit}
+          handleSubmit={handleSubmit}
+          register={register}
+          reset={reset}
+          URL={URL}
+        />
+
+        }
+        
       </div>
       
       <div className="allCards" >
@@ -54,6 +63,8 @@ function App() {
               key={user.id}
               allUser={allUser}
               URL={URL}
+              setDataEdit={setDataEdit}
+              reset={reset} 
             />
           )
         )

@@ -1,17 +1,32 @@
+import axios from 'axios'
 import React from 'react'
-import { useForm } from 'react-hook-form'
 
-const FormUserId = () => {
-const {handleSubmit, register, reset}= useForm()
+
+const FormUserId = ({postUsers, allUser, dataEdit, handleSubmit, register, reset, setDataEdit, URL}) => {
+
+
 const resetUser ={
     birthday: "",
     email: "",
     first_name: "",
-    last_name: ""
+    last_name: "",
+    password:  ""
 }
 const submit = data => {
-    console.log(data)
-    reset(resetUser)
+  if(dataEdit){
+    axios.put(`${URL}${data.id}/`, data)
+    .then(res=>console.log(res.data))
+    .catch(err => console.log(err))
+    .finally(()=>allUser())
+    setDataEdit(false)
+
+  }else{
+    postUsers(data)
+    allUser()
+  }
+
+  reset(resetUser)
+        
 }
   return (
     <form onSubmit={handleSubmit(submit)}>
@@ -31,12 +46,12 @@ const submit = data => {
           <label htmlFor="birthday"><p>Birthday</p></label>
           <input type="date" id='birthday' {...register('birthday')}/>   
         </div>
+        <div className='allForm'>
+          <label htmlFor="password"><p>Password:</p></label>
+          <input type="password" id='password' {...register('password')}/>   
+        </div>
         <button className='btnNew-user btn-submit'>Submit</button>
 
-        
-
-
-        
       </form>
   )
 }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 
-const CardUser = ({user, allUser, URL}) => {
+const CardUser = ({user, allUser, URL, setDataEdit, reset}) => {
 
   const deleteUser = id =>{
     axios.delete(`${URL}${id}/`)
@@ -11,16 +11,11 @@ const CardUser = ({user, allUser, URL}) => {
   }
 
 
-  const updateUser = id => {
-    const updateNewUser ={
-      last_name: "Daniel",
-      first_name: "Juan",
-    }
-    axios.patch(`${URL}${id}/`, updateNewUser)
-    .then(res => console.log(res.data))
-    .catch(err => console.log(err))
-    .finally(()=>allUser())
-
+  const updateUser = updateNewUser => {
+    console.log(updateNewUser, "hola error")
+    setDataEdit(true)
+    reset(updateNewUser)
+    
   }
   return (
     <article className='card'>
@@ -35,7 +30,7 @@ const CardUser = ({user, allUser, URL}) => {
           <i className="fa-solid fa-trash-arrow-up"></i> 
         </button>
 
-        <button className='btn-Trash' onClick={()=> updateUser(user.id)}>
+        <button className='btn-Trash' onClick={()=> updateUser(user)}>
         <i className="fa-solid fa-user-pen"></i> 
         </button>          
              
